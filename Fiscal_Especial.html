@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🔍 Fiscal de Minuto — Tributo Chuck Norris</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black:#0d0d0d; --offwhite:#f4f0e8; --yellow:#f5c400;
+      --red:#e03030; --green:#1db954; --blue:#3a86ff;
+      --purple:#a855f7; --gray:#2a2a2a; --orange:#ff6b00;
+      --gold:#c8a800; --darkgold:#7a6500;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:#1a1a1a; color:#f4f0e8; font-family:'IBM Plex Sans',sans-serif; font-size:15px; line-height:1.6; max-width:780px; margin:0 auto; padding:0 0 60px; }
+
+    /* HEADER ESPECIAL */
+    header {
+      background:var(--black);
+      padding:32px 24px 24px;
+      position:relative;
+      overflow:hidden;
+      border-bottom:4px solid var(--yellow);
+    }
+    header::before {
+      content:'🥋';
+      font-size:160px;
+      position:absolute;
+      right:-10px; top:-10px;
+      opacity:.07; line-height:1;
+    }
+    .header-eyebrow {
+      font-family:'IBM Plex Mono',monospace;
+      font-size:11px; letter-spacing:3px;
+      text-transform:uppercase; color:var(--yellow);
+      opacity:.8; margin-bottom:6px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .header-eyebrow::before { content:''; display:inline-block; width:28px; height:2px; background:var(--yellow); }
+    .fiscal-brand {
+      font-family:'IBM Plex Mono',monospace;
+      font-size:11px; letter-spacing:3px;
+      text-transform:uppercase; color:#888;
+      margin-bottom:12px;
+    }
+    .header-title {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(48px,12vw,84px);
+      letter-spacing:3px; color:var(--yellow); line-height:.9;
+    }
+    .header-subtitle {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(18px,4vw,28px);
+      letter-spacing:2px; color:#ccc;
+      margin-top:6px;
+    }
+    .header-dates {
+      display:flex; gap:20px; margin-top:16px;
+      flex-wrap:wrap;
+    }
+    .date-pill {
+      font-family:'IBM Plex Mono',monospace;
+      font-size:11px; letter-spacing:1px;
+      padding:4px 12px; border-radius:3px;
+      background:var(--gray); color:#ccc;
+    }
+    .date-pill.death { background:#3d0000; color:#ff8888; }
+
+    /* SECTIONS */
+    section { margin:0; background:#222; border-bottom:1px solid #333; }
+    .section-header { display:flex; align-items:center; gap:10px; padding:16px 24px 12px; background:var(--black); border-left:4px solid var(--yellow); }
+    .section-emoji { font-size:20px; }
+    .section-title { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:1.5px; color:var(--yellow); }
+    .section-sub { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; color:#555; margin-left:auto; text-transform:uppercase; }
+    .section-body { padding:16px 24px 20px; }
+
+    /* SUB-LABEL */
+    .sub-wrap { margin-top:20px; margin-bottom:10px; }
+    .sub-wrap:first-child { margin-top:0; }
+    .sub-label { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2.5px; text-transform:uppercase; color:#fff; background:var(--gray); padding:5px 12px; border-radius:4px; display:inline-block; }
+    .sub-label.gold { background:var(--darkgold); color:var(--yellow); }
+
+    /* CARDS */
+    .card { background:#2a2a2a; border:1px solid #3a3a3a; border-radius:6px; padding:14px 16px; margin-bottom:12px; }
+    .card:last-child { margin-bottom:0; }
+    .card-label { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#666; margin-bottom:4px; }
+    .card-title { font-size:15px; font-weight:600; color:#f4f0e8; margin-bottom:4px; }
+    .card-body { font-size:13.5px; color:#aaa; line-height:1.55; }
+    .card-body a { color:var(--gold); text-decoration:none; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.5px; display:inline-block; margin-top:6px; border-bottom:1px solid transparent; transition:border-color .2s; }
+    .card-body a:hover { border-color:var(--gold); }
+    .card-body strong { color:#f4f0e8; }
+
+    /* STAT GRID */
+    .stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
+    .stat-card { background:#1a1a1a; border:1px solid #3a3a3a; border-radius:6px; padding:12px 14px; text-align:center; }
+    .stat-val { font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--yellow); line-height:1; }
+    .stat-label { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:#666; margin-top:4px; }
+
+    /* FAIXA / BELT */
+    .belt-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
+    .belt-card { background:#1a1a1a; border:1px solid #3a3a3a; border-radius:6px; padding:10px 12px; text-align:center; }
+    .belt-art { font-size:22px; margin-bottom:4px; }
+    .belt-name { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:#aaa; }
+    .belt-degree { font-family:'Bebas Neue',sans-serif; font-size:14px; color:var(--yellow); }
+
+    /* FILM CARDS */
+    .film-card { background:#2a2a2a; border:1px solid #3a3a3a; border-left:4px solid var(--yellow); border-radius:0 6px 6px 0; padding:12px 16px; margin-bottom:10px; }
+    .film-card.serie { border-left-color:#009c3b; }
+    .film-card:last-child { margin-bottom:0; }
+    .film-year { font-family:'IBM Plex Mono',monospace; font-size:10px; color:#666; margin-bottom:2px; }
+    .film-title { font-size:14px; font-weight:600; color:#f4f0e8; margin-bottom:3px; }
+    .film-desc { font-size:13px; color:#999; }
+
+    /* MEME CARD */
+    .meme-card { background:#1a1a1a; border:1px solid var(--yellow); border-radius:6px; padding:16px 18px; margin-bottom:10px; position:relative; overflow:hidden; }
+    .meme-card::before { content:'"'; font-family:'Bebas Neue',sans-serif; font-size:100px; color:var(--yellow); opacity:.06; position:absolute; top:-10px; left:10px; line-height:1; }
+    .meme-text { font-family:'IBM Plex Sans',sans-serif; font-size:14px; font-style:italic; color:#ccc; line-height:1.55; position:relative; }
+    .meme-text strong { color:var(--yellow); font-style:normal; }
+
+    /* HONRA BANNER */
+    .honra-banner { background:var(--black); border:2px solid var(--yellow); text-align:center; padding:18px 20px; border-radius:6px; font-family:'Bebas Neue',sans-serif; font-size:clamp(16px,4vw,26px); letter-spacing:4px; color:var(--yellow); margin-bottom:10px; }
+
+    /* FOOTER */
+    footer { background:var(--black); border-top:4px solid var(--yellow); padding:24px; text-align:center; }
+    .footer-grito { font-family:'Bebas Neue',sans-serif; font-size:clamp(18px,4vw,28px); color:var(--yellow); letter-spacing:3px; line-height:1.1; }
+    .footer-sub { font-family:'IBM Plex Mono',monospace; font-size:10px; color:#555; margin-top:8px; letter-spacing:2px; }
+
+    @media (max-width:520px) {
+      .stat-grid { grid-template-columns:repeat(2,1fr); }
+      .belt-grid { grid-template-columns:repeat(2,1fr); }
+      .header-dates { flex-direction:column; gap:8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="fiscal-brand">🔍 Fiscal de Minuto — Edição Especial</div>
+  <div class="header-eyebrow">Tributo · In Memoriam</div>
+  <div class="header-title">CHUCK<br>NORRIS</div>
+  <div class="header-subtitle">Carlos Ray "Chuck" Norris — O Homem da Lei</div>
+  <div class="header-dates">
+    <div class="date-pill">🎂 Nascido: 10 de Março de 1940 · Ryan, Oklahoma, EUA</div>
+    <div class="date-pill death">✝ Falecido: 19 de Março de 2026 · Kauai, Havaí, EUA — 86 anos</div>
+  </div>
+</header>
+
+
+<!-- ══ QUEM FOI ══ -->
+<section>
+  <div class="section-header">
+    <span class="section-emoji">🥋</span>
+    <span class="section-title">Quem Foi Chuck Norris</span>
+    <span class="section-sub">perfil</span>
+  </div>
+  <div class="section-body">
+
+    <div class="card">
+      <div class="card-body">
+        Carlos Ray Norris nasceu em <strong>Ryan, Oklahoma</strong>, filho de caminhoneiro. Descrito como uma criança tímida e introvertida, encontrou nas artes marciais o caminho para transformar sua vida. Serviu na <strong>Força Aérea dos EUA</strong> — foi no serviço que começou a treinar karatê na Coreia do Sul, em 1958. Ao voltar, se tornou instrutor e logo um dos mais respeitados lutadores do mundo. Daí para Hollywood, foi um chute certeiro.
+      </div>
+    </div>
+
+    <div class="sub-wrap">
+      <span class="sub-label gold">📊 Números de uma Lenda</span>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-val">86</div>
+        <div class="stat-label">Anos de vida</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">20+</div>
+        <div class="stat-label">Filmes estrelados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">8</div>
+        <div class="stat-label">Temporadas na TV</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">5</div>
+        <div class="stat-label">Filhos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">90</div>
+        <div class="stat-label">Escolas Chun Kuk Do</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">2.300</div>
+        <div class="stat-label">Faixas-pretas formadas</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══ ARTES MARCIAIS ══ -->
+<section>
+  <div class="section-header">
+    <span class="section-emoji">🏆</span>
+    <span class="section-title">As Artes Marciais</span>
+    <span class="section-sub">graus & estilos</span>
+  </div>
+  <div class="section-body">
+
+    <div class="card" style="margin-bottom:12px;">
+      <div class="card-body">
+        Chuck Norris não era apenas ator que <em>parecia</em> saber lutar — era um <strong>campeão real</strong>. Detinha faixas preta em seis modalidades diferentes, com graus impressionantes em cada uma. Um dos poucos ocidentais a receber o <strong>10º Dan</strong> em sua própria arte marcial.
+      </div>
+    </div>
+
+    <div class="belt-grid">
+      <div class="belt-card">
+        <div class="belt-art">🥋</div>
+        <div class="belt-name">Tang Soo Do</div>
+        <div class="belt-degree">9º Dan</div>
+      </div>
+      <div class="belt-card">
+        <div class="belt-art">🥋</div>
+        <div class="belt-name">Chun Kuk Do</div>
+        <div class="belt-degree">10º Dan</div>
+      </div>
+      <div class="belt-card">
+        <div class="belt-art">🥋</div>
+        <div class="belt-name">Taekwondo</div>
+        <div class="belt-degree">8º Dan</div>
+      </div>
+      <div class="belt-card">
+        <div class="belt-art">🥋</div>
+        <div class="belt-name">Karatê</div>
+        <div class="belt-degree">5º Dan</div>
+      </div>
+      <div class="belt-card">
+        <div class="belt-art">🥋</div>
+        <div class="belt-name">Jiu-Jítsu Brasileiro</div>
+        <div class="belt-degree">3º Dan</div>
+      </div>
+      <div class="belt-card">
+        <div class="belt-art">🥋</div>
+        <div class="belt-name">Judô</div>
+        <div class="belt-degree">Faixa-preta</div>
+      </div>
+    </div>
+
+    <div class="sub-wrap">
+      <span class="sub-label gold">🥋 Chun Kuk Do — A Arte Dele</span>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        Em <strong>1990</strong>, Norris criou a <strong>Chun Kuk Do</strong> — uma arte marcial baseada no Tang Soo Do, incorporando elementos de todos os estilos que dominava. Possui código de honra, regras de conduta e sistema de <strong>8 cinturões</strong>. Hoje conta com <strong>90 escolas</strong> nos EUA, México, Noruega e Paraguai, <strong>3.000 membros ativos</strong> e mais de <strong>2.300 faixas-pretas</strong> formadas.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══ FILMOGRAFIA ══ -->
+<section>
+  <div class="section-header">
+    <span class="section-emoji">🎬</span>
+    <span class="section-title">Filmografia</span>
+    <span class="section-sub">do Coliseu ao Texas</span>
+  </div>
+  <div class="section-body">
+
+    <div class="sub-wrap" style="margin-top:0;">
+      <span class="sub-label">🎥 Filmes Marcantes</span>
+    </div>
+
+    <div class="film-card">
+      <div class="film-year">1972</div>
+      <div class="film-title">O Voo do Dragão</div>
+      <div class="film-desc">Estreia ao lado de <strong>Bruce Lee</strong>. A luta no Coliseu de Roma é uma das mais icônicas da história do cinema de ação. Fora das telas, os dois eram amigos e treinavam juntos.</div>
+    </div>
+
+    <div class="film-card">
+      <div class="film-year">1983</div>
+      <div class="film-title">McQuade, O Lobo Solitário</div>
+      <div class="film-desc">Texas Ranger durão e solitário. O personagem J.J. McQuade foi o <strong>protótipo direto</strong> de Cordell Walker — a semente de sua maior série.</div>
+    </div>
+
+    <div class="film-card">
+      <div class="film-year">1984 – 1988</div>
+      <div class="film-title">Trilogia Braddock — O Super Comando</div>
+      <div class="film-desc">Coronel que volta ao Vietnã para resgatar prisioneiros de guerra. Norris dedicou os filmes à memória do <strong>irmão Wieland</strong>, morto em combate no Vietnã em 1970.</div>
+    </div>
+
+    <div class="film-card">
+      <div class="film-year">1985</div>
+      <div class="film-title">Invasão U.S.A.</div>
+      <div class="film-desc">Ex-agente da CIA enfrenta invasão terrorista em solo americano. Um dos maiores sucessos de bilheteria da era Cannon Films.</div>
+    </div>
+
+    <div class="film-card">
+      <div class="film-year">1985</div>
+      <div class="film-title">Código do Silêncio</div>
+      <div class="film-desc">Um dos <strong>mais elogiados pela crítica</strong>. Policial incorruptível em Chicago enfrenta tráfico e corrupção interna — tom mais sério que o habitual de Norris.</div>
+    </div>
+
+    <div class="film-card">
+      <div class="film-year">1986</div>
+      <div class="film-title">Comando Delta</div>
+      <div class="film-desc">Missão antiterrorista no Oriente Médio ao lado de Lee Marvin. Consolidou Norris como o maior nome da Cannon Films nos anos 80.</div>
+    </div>
+
+    <div class="film-card">
+      <div class="film-year">2012</div>
+      <div class="film-title">Os Mercenários 2</div>
+      <div class="film-desc">Retorno às telas ao lado de Stallone, Schwarzenegger e Bruce Willis. Uma celebração em vida do legado do cinema de ação dos anos 80.</div>
+    </div>
+
+    <div class="sub-wrap">
+      <span class="sub-label" style="background:#1a7a3f;">📺 Walker, Texas Ranger — A Série</span>
+    </div>
+
+    <div class="film-card serie">
+      <div class="film-year">CBS · 1993 – 2001 · 8 Temporadas · +200 Episódios</div>
+      <div class="film-title">Walker, Texas Ranger — "Chuck Norris: O Homem da Lei"</div>
+      <div class="film-desc">
+        A obra da vida. Norris viveu o <strong>Sargento Cordell Walker</strong>, patrulheiro do Texas, ex-fuzileiro naval e mestre em artes marciais que resolvia crimes em Dallas e arredores. A série foi ao ar por <strong>8 anos na CBS</strong>, acumulando <strong>9 temporadas</strong> e se tornando um fenômeno mundial — no Brasil, foi exibida por emissoras abertas e a cabo durante toda a década de 1990 e 2000. Norris ainda retomou o personagem no telefilme <em>Walker, Texas Ranger: Trial by Fire</em> (2005). É o trabalho mais duradouro e popular de toda a sua carreira.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══ OS MEMES ══ -->
+<section>
+  <div class="section-header">
+    <span class="section-emoji">😂</span>
+    <span class="section-title">O Meme Imortal</span>
+    <span class="section-sub">cultura pop</span>
+  </div>
+  <div class="section-body">
+
+    <div class="card" style="margin-bottom:12px;">
+      <div class="card-body">
+        Desde <strong>2005</strong>, Chuck Norris se tornou um dos maiores memes da internet — "Chuck Norris Facts", fatos fictícios e absurdos sobre suas supostas habilidades sobre-humanas. O próprio Norris abraçou a brincadeira com bom humor ao longo dos anos.
+      </div>
+    </div>
+
+    <div class="meme-card">
+      <div class="meme-text">"Chuck Norris não faz flexão. Ele empurra <strong>a Terra para baixo</strong>."</div>
+    </div>
+    <div class="meme-card">
+      <div class="meme-text">"Chuck Norris contou até o infinito. <strong>Duas vezes</strong>."</div>
+    </div>
+    <div class="meme-card">
+      <div class="meme-text">"A morte veio para Chuck Norris uma vez. <strong>Erro que não cometeu duas</strong>."</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══ GENA ══ -->
+<section>
+  <div class="section-header">
+    <span class="section-emoji">❤️</span>
+    <span class="section-title">O Amor Maior que Hollywood</span>
+    <span class="section-sub">Gena O'Kelley</span>
+  </div>
+  <div class="section-body">
+
+    <div class="card">
+      <div class="card-label">Amor · Sacrifício · Dedicação</div>
+      <div class="card-title">Chuck largou Hollywood para salvar a esposa — 12 anos ao lado de Gena</div>
+      <div class="card-body">
+        Em 2013, Gena O'Kelley foi diagnosticada com artrite reumatoide e submetida a ressonâncias com contraste de <strong>gadolínio</strong> — substância tóxica que envenenou seu organismo. Perdeu 7kg, ficou 5 meses de cama, incapaz de engolir. Chuck abandonou o cinema sem hesitar: <em>"Desisti da carreira para cuidar de Gena. Minha vida toda gira em torno de mantê-la viva."</em> Dormia no sofá ao lado dela todas as noites, leu 17 livros em voz alta durante a internação e processou a empresa farmacêutica responsável. A maior batalha do homem mais invencível do cinema foi travada em silêncio — dentro de um hospital.
+        <br><a href="https://revistamarieclaire.globo.com/celebridades/noticia/2026/03/chuck-norris-se-aposentou-para-cuidar-da-esposa.ghtml" target="_blank">→ Marie Claire</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══ LEGADO ══ -->
+<section>
+  <div class="section-header">
+    <span class="section-emoji">🌟</span>
+    <span class="section-title">Legado</span>
+    <span class="section-sub">além das telas</span>
+  </div>
+  <div class="section-body">
+
+    <div class="card">
+      <div class="card-body">
+        Em <strong>1990</strong> fundou a <strong>KickStart</strong>, programa que leva artes marciais a crianças em situação de risco como ferramenta de afastamento das drogas — já beneficiou milhares de jovens nos EUA. Era cristão devoto, escreveu livros sobre fé e apoiou causas conservadoras. Em <strong>2007</strong> foi nomeado <strong>Marine honorário</strong> pelo Comandante-geral das Forças Armadas. Em <strong>2010</strong> recebeu o título honorário de <strong>Texas Ranger</strong> pelo governador Rick Perry — o mesmo posto que imortalizou na TV.
+      </div>
+    </div>
+
+    <div class="honra-banner">EM MEMÓRIA · CHUCK NORRIS · 1940 – 2026</div>
+
+    <div class="card">
+      <div class="card-body" style="text-align:center; color:#999; font-style:italic;">
+        "Casado com <strong style="color:#f4f0e8;">Gena O'Kelley</strong> de 1998 até seu último dia.<br>Pai de <strong style="color:#f4f0e8;">5 filhos</strong>. Veterano. Campeão. Ator. Lenda."
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grito">DESCANSE EM PAZ, CHUCK. 🥋🙏</div>
+  <div class="footer-sub">Fiscal de Minuto · Edição Especial · 20 de Março de 2026 · fiscaldeminuto.github.io</div>
+</footer>
+
+</body>
+</html>
